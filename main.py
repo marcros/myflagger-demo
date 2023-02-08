@@ -1,6 +1,9 @@
 import streamlit as st
 from annotated_text import annotated_text, annotation
 from model import PipadiTransfomer
+import requests
+import os
+import zipfile
 
 """
 # MyFlagger - Automatic Information Extraction
@@ -37,6 +40,22 @@ def prepare_annotation(eval_subtokens, predictions):
     return web_input
 
 
+def download_model():
+    folder_name = 'flagger_model'
+
+    if os.path.exists(folder_name):
+        pass
+    else:
+        r = requests.get('https://www.dropbox.com/sh/lypndyn08t4jxad/AAALbP7tnoY5meKXcuduJLuUa?dl=1',
+                         allow_redirects=True)
+        open('{}.zip'.format(folder_name), 'wb').write(r.content)
+
+        with zipfile.ZipFile('{}.zip'.format(folder_name), 'r') as zip_ref:
+            zip_ref.extractall(folder_name)
+        os.remove('{}.zip'.format(folder_name))
+
+
+download_model()
 #with st.echo():
 sentence = st.text_input('Input your sentence here:')
 
