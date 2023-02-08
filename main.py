@@ -41,7 +41,7 @@ def prepare_annotation(eval_subtokens, predictions):
 sentence = st.text_input('Input your sentence here:')
 
 # Instantiate PipadiTransformer object
-pipadi_model = PipadiTransfomer('model_1', 'distilbert-base-multilingual-cased', 220, 16)
+pipadi_model = PipadiTransfomer('flagger_model', 'distilbert-base-multilingual-cased', 220, 16)
 
 # Tokenize input sentence
 subtokens = pipadi_model.tokenize(sentence)
